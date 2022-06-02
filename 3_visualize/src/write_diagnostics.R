@@ -1,9 +1,11 @@
 # Write model diagnostics to txt file
 
 # Define write_diagnostics() function
-write_diagnostics <- function(){
+write_diagnostics <- function(filepath_in = '2_process/out',
+                              filepath_out = '3_visualize/out'){
+  
   # Read data
-  eval_data <- readRDS("2_process/out/eval_data")
+  eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
   
   # Save the model diagnostics
   render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
@@ -25,7 +27,7 @@ write_diagnostics <- function(){
                    str_remove_all('\n') %>% 
                    str_replace_all('  ', ' '), 
                  render_data ) %>% 
-    cat(file = file.path('3_visualize/out/model_diagnostic_text.txt'))
+    cat(file = file.path(filepath_out, 'model_diagnostic_text.txt'))
 }
 
 # Execute write_diagnostics() function

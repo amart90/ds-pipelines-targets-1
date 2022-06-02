@@ -1,10 +1,6 @@
-process <- function(repo_path){
-  # Set up environment
-  setwd(repo_path)
-  library(readr)
-  library(dplyr)
-  library(stringr)
-  
+# Prepare data for plotting
+
+process <- function(){
   # Prepare the data for plotting
   eval_data <- read_csv("1_fetch/out/model_RMSEs.csv", col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
@@ -23,4 +19,4 @@ process <- function(repo_path){
   write_csv(eval_data, file = '2_process/out/model_summary_results.csv')
 }
 
-process("C:/Users/ajmartinez/GithubProjects/ds-pipelines-targets-1")
+process()

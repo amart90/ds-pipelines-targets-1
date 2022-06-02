@@ -1,9 +1,8 @@
+# Retrieve model prediction data from ScienceBase
+
 # Define fetch() funtion
-fetch <- function(repo_path){
+fetch <- function(){
   # Set up environment
-  library(sbtools)
-  setwd(repo_path)
-  
   # Get the data from ScienceBase
   item_file_download('5d925066e4b0c4f70d0d0599', 
                      names = 'me_RMSE.csv', 
@@ -12,4 +11,4 @@ fetch <- function(repo_path){
 }
 
 # Execute fetch() function
-fetch("C:/Users/ajmartinez/GithubProjects/ds-pipelines-targets-1")
+fetch()

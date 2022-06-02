@@ -1,6 +1,6 @@
 # Retrieve model prediction data from ScienceBase
 
-# Define fetch() funtion
+# Define fetch() function
 fetch <- function(){
   # Set up environment
   # Get the data from ScienceBase

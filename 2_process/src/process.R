@@ -1,17 +1,24 @@
 # Prepare data for plotting
 
-process <- function(){
+# Define process() function
+# viz_col argument to specify colors used for 'pb', 'dl', and 'pgdl' models
+# viz_pch argument to specify point type used for 'pb', 'dl', and 'pgdl' models
+# viz_col should be a character vector with a length of 3.
+# viz_pch should be a nueric vector with a length of 3.
+
+process <- function(viz_col = c('#1b9e77', '#d95f02', '#7570b3'),
+                    viz_pch = c(21, 22, 23)){
   # Prepare the data for plotting
   eval_data <- read_csv("1_fetch/out/model_RMSEs.csv", col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
-      model_type == 'pb' ~ '#1b9e77',
-      model_type == 'dl' ~'#d95f02',
-      model_type == 'pgdl' ~ '#7570b3'
+      model_type == 'pb' ~ viz_col[1],
+      model_type == 'dl' ~ viz_col[2],
+      model_type == 'pgdl' ~ viz_col[3]
     ), pch = case_when(
-      model_type == 'pb' ~ 21,
-      model_type == 'dl' ~ 22,
-      model_type == 'pgdl' ~ 23
+      model_type == 'pb' ~ viz_pch[1],
+      model_type == 'dl' ~ viz_pch[2],
+      model_type == 'pgdl' ~ viz_pch[3]
     ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
   
   # Write evaluation data
@@ -19,4 +26,5 @@ process <- function(){
   write_csv(eval_data, file = '2_process/out/model_summary_results.csv')
 }
 
+# Execute process() function with default color options
 process()

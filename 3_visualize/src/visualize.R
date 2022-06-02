@@ -1,8 +1,10 @@
 # Create whisker plot to visualize data
 
 # Define visualize() function
-visualize <- function(filepath_in = '2_process/out',
-                      filepath_out = '3_visualize/out'){
+# filepath_in argument to specify file path of input directory
+# filepath_out argument to specify file path of output directory
+
+visualize <- function(filepath_in, filepath_out){
   
   # Read data
   eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
@@ -52,5 +54,3 @@ visualize <- function(filepath_in = '2_process/out',
 
 }
 
-# Execute visualize() function
-visualize()

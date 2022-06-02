@@ -1,15 +1,14 @@
 # Prepare data for plotting
 
 # Define process() function
+# filepath_in argument to specify file path of input directory
+# filepath_out argument to specify file path of output directory
 # viz_col argument to specify colors used for 'pb', 'dl', and 'pgdl' models
 # viz_pch argument to specify point type used for 'pb', 'dl', and 'pgdl' models
 # viz_col should be a character vector with a length of 3.
 # viz_pch should be a numeric vector with a length of 3.
 
-process <- function(filepath_in = '1_fetch/out',
-                    filepath_out = '2_process/out',
-                    viz_col = c('#1b9e77', '#d95f02', '#7570b3'),
-                    viz_pch = c(21, 22, 23)){
+process <- function(filepath_in, filepath_out, viz_col, viz_pch){
   
   # Prepare the data for plotting
   eval_data <- read_csv(file.path(filepath_in, 'model_RMSEs.csv'), col_types = 'iccd') %>%
@@ -30,5 +29,4 @@ process <- function(filepath_in = '1_fetch/out',
   
 }
 
-# Execute process() function with default color options
-process()
+

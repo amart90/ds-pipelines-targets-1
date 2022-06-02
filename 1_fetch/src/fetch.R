@@ -1,9 +1,9 @@
 # Retrieve model prediction data from ScienceBase
 
 # Define fetch() function
-# filepath_out argument is file path to output directory
-fetch <- function(filepath_out = '1_fetch/out'){
-  # Set up environment
+# filepath_out argument to specify file path of output directory
+
+fetch <- function(filepath_out){
   # Get the data from ScienceBase
   item_file_download('5d925066e4b0c4f70d0d0599', 
                      names = 'me_RMSE.csv', 
@@ -11,6 +11,3 @@ fetch <- function(filepath_out = '1_fetch/out'){
                      overwrite_file = TRUE)
 }
 
-# Execute fetch() function
-fetch()
-sbtools::item_file_download()

@@ -1,8 +1,10 @@
 # Write model diagnostics to txt file
 
 # Define write_diagnostics() function
-write_diagnostics <- function(filepath_in = '2_process/out',
-                              filepath_out = '3_visualize/out'){
+# filepath_in argument to specify file path of input directory
+# filepath_out argument to specify file path of output directory
+
+write_diagnostics <- function(filepath_in, filepath_out){
   
   # Read data
   eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
@@ -30,5 +32,3 @@ write_diagnostics <- function(filepath_in = '2_process/out',
     cat(file = file.path(filepath_out, 'model_diagnostic_text.txt'))
 }
 
-# Execute write_diagnostics() function
-write_diagnostics()

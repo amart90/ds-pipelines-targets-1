@@ -10,15 +10,23 @@ write_diagnostics <- function(filepath_in, filepath_out){
   eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
   
   # Save the model diagnostics
-  render_data <- list(pgdl_980mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_980mean = filter(eval_data, model_type == 'dl', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_980mean = filter(eval_data, model_type == 'pb', exper_id == "similar_980") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_500mean = filter(eval_data, model_type == 'dl', exper_id == "similar_500") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_500mean = filter(eval_data, model_type == 'pb', exper_id == "similar_500") %>% pull(rmse) %>% mean %>% round(2),
-                      dl_100mean = filter(eval_data, model_type == 'dl', exper_id == "similar_100") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_100mean = filter(eval_data, model_type == 'pb', exper_id == "similar_100") %>% pull(rmse) %>% mean %>% round(2),
-                      pgdl_2mean = filter(eval_data, model_type == 'pgdl', exper_id == "similar_2") %>% pull(rmse) %>% mean %>% round(2),
-                      pb_2mean = filter(eval_data, model_type == 'pb', exper_id == "similar_2") %>% pull(rmse) %>% mean %>% round(2))
+  render <- function(model, exper){
+    filter(eval_data, model_type == model, exper_id == exper) %>% 
+      pull(rmse) %>% 
+      mean %>% 
+      round(2)
+  }
+  
+  render_data <- 
+    list(pgdl_980mean = render('pgdl', "similar_980"),
+         dl_980mean = render('dl',  "similar_980"),
+         pb_980mean = render('pb', "similar_980"),
+         dl_500mean = render('dl', "similar_500"),
+         pb_500mean = render('pb', "similar_500"),
+         dl_100mean = render('dl', "similar_100"),
+         pb_100mean = render('pb', "similar_100"),
+         pgdl_2mean = render('pgdl', "similar_2"),
+         pb_2mean = render('pb', "similar_2"))
   
   template_1 <- 'resulted in mean RMSEs (means calculated as average of RMSEs from the five dataset iterations) of {{pgdl_980mean}}, {{dl_980mean}}, and {{pb_980mean}}°C for the PGDL, DL, and PB models, respectively.
   The relative performance of DL vs PB depended on the amount of training data. The accuracy of Lake Mendota temperature predictions from the DL was better than PB when trained on 500 profiles 

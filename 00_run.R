@@ -11,7 +11,6 @@ source("2_process/src/process.R")
 source("3_visualize/src/visualize.R")
 source("3_visualize/src/write_diagnostics.R")
 
-
 # Execute fetch() function
 fetch(filepath_out = '1_fetch/out')
 

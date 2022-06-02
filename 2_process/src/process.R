@@ -1,12 +1,12 @@
 # Prepare data for plotting
 
 # Define process() function
-# filepath_in argument to specify file path of input directory
-# filepath_out argument to specify file path of output directory
-# viz_col argument to specify colors used for 'pb', 'dl', and 'pgdl' models
-# viz_pch argument to specify point type used for 'pb', 'dl', and 'pgdl' models
-# viz_col should be a character vector with a length of 3.
-# viz_pch should be a numeric vector with a length of 3.
+## Filepath_in argument to specify file path of input directory
+## Filepath_out argument to specify file path of output directory
+## viz_col argument to specify colors used for 'pb', 'dl', and 'pgdl' models
+## viz_pch argument to specify point type used for 'pb', 'dl', and 'pgdl' models
+## viz_col should be a character vector with a length of 3.
+## viz_pch should be a numeric vector with a length of 3.
 
 process <- function(filepath_in, filepath_out, viz_col, viz_pch){
   

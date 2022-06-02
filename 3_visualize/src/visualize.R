@@ -1,8 +1,8 @@
 # Create whisker plot to visualize data
 
 # Define visualize() function
-# filepath_in argument to specify file path of input directory
-# filepath_out argument to specify file path of output directory
+## Filepath_in argument to specify file path of input directory
+## Filepath_out argument to specify file path of output directory
 
 visualize <- function(filepath_in, filepath_out){
   
@@ -13,11 +13,14 @@ visualize <- function(filepath_in, filepath_out){
   png(file = file.path(filepath_out, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
+  # Set up plot
   plot(NA, NA, xlim = c(2, 1000), ylim = c(4.7, 0.75),
        ylab = "Test RMSE (°C)", xlab = "Training temperature profiles (#)", log = 'x', axes = FALSE)
   
+  # Specify x-axis tick location
   n_profs <- c(2, 10, 50, 100, 500, 980)
   
+  # Draw axes
   axis(1, at = c(-100, n_profs, 1e10), labels = c("", n_profs, ""), tck = -0.01)
   axis(2, at = seq(0,10), las = 1, tck = -0.01)
   
@@ -25,6 +28,7 @@ visualize <- function(filepath_in, filepath_out){
   offsets <- data.frame(pgdl = c(0.15, 0.5, 3, 7, 20, 30)) %>%
     mutate(dl = -pgdl, pb = 0, n_prof = n_profs)
   
+  # Plot data
   for (mod in c('pb','dl','pgdl')){
     mod_data <- filter(eval_data, model_type == mod)
     mod_profiles <- unique(mod_data$n_prof)
@@ -41,13 +45,14 @@ visualize <- function(filepath_in, filepath_out){
     
   }
   
-  points(2.2, 0.79, col = '#7570b3', pch = 23, bg = 'white', lwd = 2.5, cex = 1.5)
+  # Plot custom legend
+  points(2.2, 0.79, col = viz_col[3], pch = viz_pch[3], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.80, 'Process-Guided Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 0.94, col = '#d95f02', pch = 22, bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 0.94, col = viz_col[2], pch = viz_pch[2], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.95, 'Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 1.09, col = '#1b9e77', pch = 21, bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 1.09, col = viz_col[1], viz_pch[1], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()

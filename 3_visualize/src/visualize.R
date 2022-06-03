@@ -7,8 +7,8 @@
 visualize <- function(filepath_in, filepath_out){
   
   # Read data
-  eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
-  
+  eval_data <- read_csv(file.path(filepath_in, 'model_summary_results.csv'), show_col_types = FALSE)
+
   # Create a plot
   png(file = file.path(filepath_out, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)

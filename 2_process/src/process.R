@@ -24,7 +24,6 @@ process <- function(filepath_in, filepath_out, viz_col, viz_pch){
     ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
   
   # Write evaluation data
-  saveRDS(eval_data, file = file.path(filepath_out, 'eval_data'))
   write_csv(eval_data, file = file.path(filepath_out,'model_summary_results.csv'))
   
 }

@@ -7,7 +7,7 @@
 write_diagnostics <- function(filepath_in, filepath_out){
   
   # Read data
-  eval_data <- readRDS(file.path(filepath_in, 'eval_data'))
+  eval_data <- read_csv(file.path(filepath_in, 'model_summary_results.csv'), show_col_types = FALSE)
   
   # Define function to extract model performance details
   render <- function(model, exper){

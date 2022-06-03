@@ -11,7 +11,7 @@
 process <- function(filepath_in, filepath_out, viz_col, viz_pch){
   
   # Prepare the data for plotting
-  eval_data <- read_csv(file.path(filepath_in, 'model_RMSEs.csv'), col_types = 'iccd') %>%
+  eval_data <- read_csv(filepath_in, col_types = 'iccd') %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
       model_type == 'pb' ~ viz_col[1],
@@ -24,7 +24,7 @@ process <- function(filepath_in, filepath_out, viz_col, viz_pch){
     ), n_prof = as.numeric(str_extract(exper_id, '[0-9]+')))
   
   # Write evaluation data
-  write_csv(eval_data, file = file.path(filepath_out,'model_summary_results.csv'))
+  write_csv(eval_data, file = filepath_out)
   
 }
 

@@ -7,7 +7,7 @@
 write_diagnostics <- function(filepath_in, filepath_out){
   
   # Read data
-  eval_data <- read_csv(file.path(filepath_in, 'model_summary_results.csv'), show_col_types = FALSE)
+  eval_data <- read_csv(filepath_in, show_col_types = FALSE)
   
   # Compile model performance details into list
   metric_names <- c("pgdl_980mean", "dl_980mean", "pb_980mean", "dl_500mean", "pb_500mean", "dl_100mean", "pb_100mean", "pgdl_2mean", "pb_2mean")
@@ -26,7 +26,7 @@ write_diagnostics <- function(filepath_in, filepath_out){
                    str_remove_all('\n') %>% 
                    str_replace_all('  ', ' '), 
                  render_data ) %>% 
-    cat(file = file.path(filepath_out, 'model_diagnostic_text.txt'))
+    cat(file = filepath_out)
 }
 
 # Define render() function to extract model performance details

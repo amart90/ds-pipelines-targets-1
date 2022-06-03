@@ -45,14 +45,20 @@ visualize <- function(filepath_in, filepath_out){
     
   }
   
+  # Create color/pch table
+  lgnd_specs <- eval_data %>%
+    distinct(model_type, col, pch) %>%
+    arrange(model_type) %>%
+    as.data.frame()
+
   # Plot custom legend
-  points(2.2, 0.79, col = viz_col[3], pch = viz_pch[3], bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 0.79, col = lgnd_specs[3, 'col'], pch = lgnd_specs[3, 'pch'], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.80, 'Process-Guided Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 0.94, col = viz_col[2], pch = viz_pch[2], bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 0.94, col = lgnd_specs[1, 'col'], pch = lgnd_specs[1, 'pch'], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 0.95, 'Deep Learning', pos = 4, cex = 1.1)
   
-  points(2.2, 1.09, col = viz_col[1], viz_pch[1], bg = 'white', lwd = 2.5, cex = 1.5)
+  points(2.2, 1.09, col = lgnd_specs[2, 'col'], pch = lgnd_specs[2, 'pch'], bg = 'white', lwd = 2.5, cex = 1.5)
   text(2.3, 1.1, 'Process-Based', pos = 4, cex = 1.1)
   
   dev.off()

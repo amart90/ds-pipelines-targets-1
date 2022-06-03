@@ -9,18 +9,10 @@ write_diagnostics <- function(filepath_in, filepath_out){
   # Read data
   eval_data <- read_csv(file.path(filepath_in, 'model_summary_results.csv'), show_col_types = FALSE)
   
-  # Define function to extract model performance details
-  render <- function(model, exper){
-    filter(eval_data, model_type == model, exper_id == exper) %>% 
-      pull(rmse) %>% 
-      mean %>% 
-      round(2)
-  }
-  
   # Compile model performance details into list
   metric_names <- c("pgdl_980mean", "dl_980mean", "pb_980mean", "dl_500mean", "pb_500mean", "dl_100mean", "pb_100mean", "pgdl_2mean", "pb_2mean")
   render_data <- sapply(metric_names, 
-                        function(X) render(sub("_.*", "", X), paste0("similar_", gsub("[^0-9]", "", X))),
+                        function(X) render(eval_data, sub("_.*", "", X), paste0("similar_", gsub("[^0-9]", "", X))),
                         USE.NAMES = TRUE, simplify = FALSE)
   
   # Specify model performance report template text
@@ -37,3 +29,11 @@ write_diagnostics <- function(filepath_in, filepath_out){
     cat(file = file.path(filepath_out, 'model_diagnostic_text.txt'))
 }
 
+# Define render() function to extract model performance details
+# Used within write_diagnostics() function to produce render_data
+render <- function(data, model, exper){
+  filter(data, model_type == model, exper_id == exper) %>% 
+    pull(rmse) %>% 
+    mean %>% 
+    round(2)
+}

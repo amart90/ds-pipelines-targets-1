@@ -18,16 +18,10 @@ write_diagnostics <- function(filepath_in, filepath_out){
   }
   
   # Compile model performance details into list
-  render_data <- 
-    list(pgdl_980mean = render('pgdl', "similar_980"),
-         dl_980mean = render('dl',  "similar_980"),
-         pb_980mean = render('pb', "similar_980"),
-         dl_500mean = render('dl', "similar_500"),
-         pb_500mean = render('pb', "similar_500"),
-         dl_100mean = render('dl', "similar_100"),
-         pb_100mean = render('pb', "similar_100"),
-         pgdl_2mean = render('pgdl', "similar_2"),
-         pb_2mean = render('pb', "similar_2"))
+  metric_names <- c("pgdl_980mean", "dl_980mean", "pb_980mean", "dl_500mean", "pb_500mean", "dl_100mean", "pb_100mean", "pgdl_2mean", "pb_2mean")
+  render_data <- sapply(metric_names, 
+                        function(X) render(sub("_.*", "", X), paste0("similar_", gsub("[^0-9]", "", X))),
+                        USE.NAMES = TRUE, simplify = FALSE)
   
   # Specify model performance report template text
   template_1 <- 'Resulted in mean RMSEs (means calculated as average of RMSEs from the five dataset iterations) of {{pgdl_980mean}}, {{dl_980mean}}, and {{pb_980mean}}°C for the PGDL, DL, and PB models, respectively.

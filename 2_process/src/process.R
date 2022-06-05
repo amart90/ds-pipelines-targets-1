@@ -25,7 +25,7 @@ process <- function(filepath_in, filepath_out, viz_col, viz_pch){
   
   # Write evaluation data
   write_csv(eval_data, file = filepath_out)
-  
+  return(filepath_out)
 }
 
 

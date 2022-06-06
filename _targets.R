@@ -15,7 +15,7 @@ list(
   ), 
   # Prepare the data for plotting
   tar_target(
-    eval_data,
+    model_summary_results_csv,
     process(filepath_in = model_RMSEs_csv,
             filepath_out = '2_process/out/model_summary_results.csv',
             viz_col = c('#1b9e77', '#d95f02', '#7570b3'),
@@ -25,7 +25,7 @@ list(
   # Create a plot
   tar_target(
     figure_1_png,
-    visualize(filepath_in = eval_data,
+    visualize(filepath_in = model_summary_results_csv,
               filepath_out = '3_visualize/out/figure_1.png'), 
     format = "file"
   ),
@@ -33,7 +33,7 @@ list(
   # Save the model diagnostics
   tar_target(
     model_diagnostic_text_txt,
-    write_diagnostics(filepath_in = eval_data,
+    write_diagnostics(filepath_in = model_summary_results_csv,
                       filepath_out = '3_visualize/out/model_diagnostic_text.txt'), 
     format = "file"
   )

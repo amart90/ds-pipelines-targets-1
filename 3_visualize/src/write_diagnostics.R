@@ -27,6 +27,7 @@ write_diagnostics <- function(filepath_in, filepath_out){
                    str_replace_all('  ', ' '), 
                  render_data ) %>% 
     cat(file = filepath_out)
+  return(filepath_out)
 }
 
 # Define render() function to extract model performance details
